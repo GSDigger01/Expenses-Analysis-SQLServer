@@ -1,0 +1,48 @@
+relationship 66949e74-6961-4529-8c0b-79675f074d1c
+	fromColumn: Depenses.ID_TypeDepense
+	toColumn: DimTypeDepense.ID_TypeDepense
+
+	annotation PBI_IsFromSource = FS
+
+relationship 6d41d0cf-5f2e-488d-953b-2e68df245178
+	fromColumn: Depenses.ID_Region
+	toColumn: DimRegion.ID_Region
+
+	annotation PBI_IsFromSource = FS
+
+relationship 49a0ac5f-44d2-4c89-8052-752db6dd04c7
+	fromColumn: Depenses.ID_Departement
+	toColumn: DimDepartement.ID_Departement
+
+	annotation PBI_IsFromSource = FS
+
+relationship bcadfcb7-92c5-47ae-9854-6d1d9a170cba
+	fromColumn: Depenses.DateID
+	toColumn: DimDate.DateID
+
+	annotation PBI_IsFromSource = FS
+
+relationship d755339b-e2e5-4b4d-a143-1d83eba92af1
+	fromColumn: Budget.ID_TypeDepense
+	toColumn: DimTypeDepense.ID_TypeDepense
+
+	annotation PBI_IsFromSource = FS
+
+relationship f6624f39-bcbc-4036-bfef-7ab3032a85b2
+	fromColumn: Budget.ID_Region
+	toColumn: DimRegion.ID_Region
+
+	annotation PBI_IsFromSource = FS
+
+relationship 9263f2cd-9499-4c51-b0d0-84bcc2ed64d3
+	fromColumn: Budget.ID_Departement
+	toColumn: DimDepartement.ID_Departement
+
+	annotation PBI_IsFromSource = FS
+
+relationship e6ff85b9-c6fa-497f-b653-d63d25238d9c
+	fromColumn: Budget.DateID
+	toColumn: DimDate.DateID
+
+	annotation PBI_IsFromSource = FS
+

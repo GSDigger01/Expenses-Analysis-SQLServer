@@ -1,0 +1,62 @@
+table 'reporting vw_DepensesMensuelles'
+	lineageTag: 8ac0f274-2005-458e-91e8-b44c8e46f9d7
+
+	column Annee
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e1211e4-3d0e-405a-8864-8ccb953c78ee
+		summarizeBy: sum
+		sourceColumn: Annee
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mois
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ae6f25d-c346-4cf0-8a45-8bdee4c70592
+		summarizeBy: sum
+		sourceColumn: Mois
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomMois
+		dataType: string
+		lineageTag: d3d6a5c7-5a3a-4724-adea-7da9df0d8bf6
+		summarizeBy: none
+		sourceColumn: NomMois
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepenseTotale
+		dataType: double
+		lineageTag: 8e50727b-34e2-4917-a3b8-e0a637f08d6d
+		summarizeBy: sum
+		sourceColumn: DepenseTotale
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Cumul_Annuel
+		dataType: double
+		lineageTag: 213f9437-625e-4951-82b8-3a934b9af44d
+		summarizeBy: sum
+		sourceColumn: Cumul_Annuel
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'reporting vw_DepensesMensuelles' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("DESKTOP-IKCAP89\SQLEXPRESS", "FinanceBI"),
+				    reporting_vw_DepensesMensuelles = Source{[Schema="reporting",Item="vw_DepensesMensuelles"]}[Data]
+				in
+				    reporting_vw_DepensesMensuelles
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

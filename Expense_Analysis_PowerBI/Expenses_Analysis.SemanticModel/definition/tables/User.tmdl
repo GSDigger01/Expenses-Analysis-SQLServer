@@ -1,0 +1,36 @@
+table User
+	lineageTag: 5d57b44d-4103-4323-9e0c-5164516201f2
+
+	column ID_User
+		lineageTag: c039be64-0844-42b1-846a-8fc15cc3df86
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ID_User]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		lineageTag: bf0e74ee-fca9-4c65-a827-0116a48e645a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition User = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "ID_User", STRING,
+				    "Name", STRING,
+				    {
+				        { "DESKTOP-IKCAP89\NOGO G$", "Francis" }
+				       
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = e66373d1fd4d44c1b1ace4f2486abb27
+

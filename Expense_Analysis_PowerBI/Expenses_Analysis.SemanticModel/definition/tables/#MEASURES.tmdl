@@ -1,0 +1,220 @@
+table #MEASURES
+	lineageTag: 406444e5-06d4-4ecb-aba1-df765c02ae29
+
+	measure TotalBudget = sum ( Budget[MontantBudget])
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		displayFolder: Budget
+		lineageTag: 277da770-87ce-461a-8e4a-4aeecd457a10
+
+	measure TotalSpend = sum ( Depenses[MontantReel])
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		displayFolder: Spend
+		lineageTag: eb455a61-bb33-45be-a024-84f1a3b0b93c
+
+	measure BudgetVar = [TotalBudget] -[TotalSpend]
+		formatString: +#,0.## €;-#,0.## €;0 €", "fr-FR
+		displayFolder: Budget
+		lineageTag: e1233500-820e-4469-ad02-173612994d4d
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure %BudgetVar = DIVIDE([BudgetVar],[TotalBudget])
+		formatString: +0.00%;-0.00%;0.00%";"fr-FR"
+		displayFolder: Budget
+		lineageTag: 392827d7-ae1b-4267-9688-d1585173915d
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure %Spend = ```
+			
+			DIVIDE([TotalSpend], [TotalBudget], 0)
+			
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		displayFolder: Spend
+		lineageTag: 4e68e192-a4d6-4758-8b77-b57995fcd65d
+
+	measure LastMaj = ```
+			
+			VAR DateMaj = MAX('DateMaj'[Date])
+			VAR heure = MAX(DateMaj[Heure])
+			RETURN
+			"Last Maj  " & 
+			FORMAT(DateMaj, "[$-fr-FR]d mmm yyyy","fr-FR") & " at " & heure
+			
+			```
+		lineageTag: 7ff98e0d-f0cf-461e-8ffa-6763063573d6
+
+	measure SpendCY = ```
+			
+			        CALCULATE( 
+			            [TotalSpend],
+			            DimDate[Annee] = 2025) 
+			    
+			```
+		displayFolder: Spend
+		lineageTag: e94e1c6a-02ec-462a-b24a-89f0e6a0793e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure SpendPY = ```
+			
+			        CALCULATE( 
+			            [TotalSpend],
+			            DimDate[Annee] = 2024) 
+			    
+			```
+		displayFolder: Spend
+		lineageTag: be607d3c-4b20-4ef0-8679-bbddbdba2376
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure vsSpendPY = [SpendCY]-[SpendPY]
+		displayFolder: Spend
+		lineageTag: e6899790-094a-4a5c-baf6-e6b25dd2af23
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure %vsSpendPY = DIVIDE([vsSpendPY],[SpendPY],BLANK())
+		formatString: +0.00%;-0.00%;0.00%";"fr-FR"
+		displayFolder: Spend
+		lineageTag: 97582fde-906f-4bb2-80ee-a993656eefcb
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure viewVsSpend = ```
+			
+			VAR dif =
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK([SpendPY]) || [vsSpendPY] = 0, "0 €",
+			        ABS([vsSpendPY]) >= 1000000,
+			            FORMAT([vsSpendPY] / 1000000, "+#,0.0\ M€;-#,0.0\ M€;0 €","fr-FR"),
+			        FORMAT([vsSpendPY] / 1000, "+#,0.0\ K€;-#,0.0\ K€;0 €","fr-FR"))
+			
+			VAR percentdif = FORMAT([%vsSpendPY],"+0.00%;-0.00%;0.00%","fr-FR")
+			VAR Fleche =
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK([SpendPY]) || [SpendPY] = 0, "→",
+			        [vsSpendPY] < 0, "▼",
+			        [vsSpendPY] > 0, "▲",
+			        "→"  )
+			
+			    
+			RETURN 
+			    Fleche & dif &" "& "(" & percentdif & ")"
+			```
+		displayFolder: Print
+		lineageTag: 617af58c-27a2-4c47-bb77-f1148cb7ca18
+
+	measure BudgLY = ```
+			
+			        CALCULATE( 
+			            [TotalBudget],
+			            DimDate[Annee] = 2024) 
+			    
+			```
+		displayFolder: Budget
+		lineageTag: 7bec0118-a50d-4608-96cf-985abc71c0d0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure BudgCY = ```
+			
+			        CALCULATE( 
+			            [TotalBudget],
+			            DimDate[Annee] = 2025) 
+			    
+			```
+		formatString: #,0.00
+		displayFolder: Budget
+		lineageTag: 8fc7666d-c0a4-437d-a9df-3a88b645d077
+
+	measure vsBudgLY = [BudgCY] - [BudgLY]
+		formatString: #,0.00
+		displayFolder: Budget
+		lineageTag: 3e19e157-5f80-45a4-b4cc-0acf2a38c798
+
+	measure %vsBudgLY = DIVIDE( [vsBudgLY],[BudgLY],BLANK())
+		formatString: +0.00%;-0.00%;0.00%";"fr-FR"
+		displayFolder: Budget
+		lineageTag: 2702d701-bd27-4093-a595-86f46f211ebd
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure viewVsBdg = ```
+			
+			
+			VAR dif =
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK([BudgLY]) || [vsBudgLY] = 0, "0 €",
+			        ABS([vsBudgLY]) >= 1000000,
+			            FORMAT([vsBudgLY] / 1000000, "+#,0.0\ M€;-#,0.0\ M€;0 €","fr-FR"),
+			        FORMAT([vsBudgLY] / 1000, "+#,0.0\ K€;-#,0.0\ K€;0 €","fr-FR")
+			    )
+			VAR percentdif = FORMAT([%vsBudgLY],"+0.00%;-0.00%;0.00%","fr-FR")
+			VAR Fleche =
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK([BudgLY]) || [BudgLY] = 0, "→",
+			        [vsBudgLY] < 0, "▼",
+			        [vsBudgLY] > 0, "▲",
+			        "→"  )
+			
+			    
+			RETURN 
+			    Fleche & dif &" "& "(" & percentdif & ")"
+			```
+		displayFolder: Print
+		lineageTag: 5a2ea426-b07f-46a8-9dcc-044404b988e7
+
+	measure User = USERPRINCIPALNAME()
+		lineageTag: 0b2b0040-d200-4e57-8ce3-384dd6f140ac
+
+	measure Great = ```
+			
+			VAR _user = USERPRINCIPALNAME()
+			VAR _prenom = LOOKUPVALUE(User[Name], User[ID_User], _user)
+			RETURN 
+			"👤 Welcome, " & COALESCE(_prenom, _user) 
+			
+			```
+		displayFolder: Print
+		lineageTag: 9058642a-786b-4ea9-8341-e631d0a54fb5
+
+	measure 02_viewVsSpend = ```
+			
+			
+			VAR percentdif = FORMAT([%vsSpendPY],"+0.00%;-0.00%;0.00%","fr-FR")
+			VAR Fleche =
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK([SpendPY]) || [SpendPY] = 0, "→",
+			        [vsSpendPY] < 0, "▼",
+			        [vsSpendPY] > 0, "▲",
+			        "→"  )
+			
+			    
+			RETURN 
+			    Fleche & " " & percentdif
+			```
+		displayFolder: Print
+		lineageTag: d9512d17-07cd-445c-81e2-632a75ac33e0
+
+	column Column
+		formatString: 0
+		lineageTag: e25b8b54-f807-42fe-8304-cba688122538
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition #MEASURES = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 10e3e1006da84056a43cfccefb23a63b
+

@@ -1,0 +1,65 @@
+table DimDate
+	lineageTag: 44ba4ab0-1011-47d6-9f3d-23be1766930e
+
+	column DateID
+		dataType: int64
+		isKey
+		formatString: 0
+		lineageTag: 33210e66-5330-40c2-afe6-6a360299ff87
+		summarizeBy: none
+		sourceColumn: DateID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Annee
+		dataType: int64
+		formatString: 0
+		lineageTag: a6baa3a7-e6fe-4058-9054-0fbb95d302d6
+		summarizeBy: sum
+		sourceColumn: Annee
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mois
+		dataType: int64
+		formatString: 0
+		lineageTag: c511c66a-cf33-4e31-b048-3149d36d33f5
+		summarizeBy: sum
+		sourceColumn: Mois
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomMois
+		dataType: string
+		lineageTag: 8353f20f-ec6f-4de4-b0e9-6417d092588f
+		summarizeBy: none
+		sourceColumn: NomMois
+		sortByColumn: Mois
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: int64
+		formatString: 0
+		lineageTag: af801184-66c4-4439-859b-23c6dcce8a76
+		summarizeBy: sum
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("DESKTOP-IKCAP89\SQLEXPRESS", "FinanceBI"),
+				    dbo_DimDate = Source{[Schema="dbo",Item="DimDate"]}[Data],
+				    #"Colonnes supprimées" = Table.RemoveColumns(dbo_DimDate,{"Depenses", "Budget"})
+				in
+				    #"Colonnes supprimées"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

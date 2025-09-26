@@ -1,0 +1,51 @@
+table 'reporting vw_DepartementFlagDepense'
+	lineageTag: 434350e6-12af-4191-8e3e-3f478de0374d
+
+	column Nom_Departement
+		dataType: string
+		lineageTag: 9159cf28-0038-4c58-b9df-d132c11c6a9b
+		summarizeBy: none
+		sourceColumn: Nom_Departement
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepenseMoyenne
+		dataType: double
+		lineageTag: e2d69b49-3d6d-47a0-889e-ee98767fb5ea
+		summarizeBy: sum
+		sourceColumn: DepenseMoyenne
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MoyenneGlobale
+		dataType: double
+		lineageTag: 36f732be-1118-4745-b066-7872cd19a36a
+		summarizeBy: sum
+		sourceColumn: MoyenneGlobale
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Depense_Haute_Flag
+		dataType: int64
+		formatString: 0
+		lineageTag: 9daa1a5a-0b00-44ba-822b-eeecd8444941
+		summarizeBy: sum
+		sourceColumn: Depense_Haute_Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'reporting vw_DepartementFlagDepense' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("DESKTOP-IKCAP89\SQLEXPRESS", "FinanceBI"),
+				    reporting_vw_DepartementFlagDepense = Source{[Schema="reporting",Item="vw_DepartementFlagDepense"]}[Data]
+				in
+				    reporting_vw_DepartementFlagDepense
+
+	annotation PBI_ResultType = Table
+

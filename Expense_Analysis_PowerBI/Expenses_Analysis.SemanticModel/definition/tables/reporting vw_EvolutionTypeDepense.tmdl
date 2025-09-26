@@ -1,0 +1,71 @@
+table 'reporting vw_EvolutionTypeDepense'
+	lineageTag: c16e6eed-cbb7-4666-a589-d0d0f5c6678a
+
+	column Nom_TypeDepense
+		dataType: string
+		lineageTag: 53e330a9-c71e-4157-a569-a0ef6b5394be
+		summarizeBy: none
+		sourceColumn: Nom_TypeDepense
+
+		annotation SummarizationSetBy = Automatic
+
+	column Depense2024
+		dataType: double
+		lineageTag: 31672332-49f5-44c0-b956-c01807452795
+		summarizeBy: sum
+		sourceColumn: Depense2024
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Depense2025
+		dataType: double
+		lineageTag: 8035a97e-38c7-4ce4-b46b-bed36b9a5461
+		summarizeBy: sum
+		sourceColumn: Depense2025
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Ecart_Absolu
+		dataType: double
+		lineageTag: 1405edb6-7456-44c9-b40f-abefb6d4ce6e
+		summarizeBy: sum
+		sourceColumn: Ecart_Absolu
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Taux_Evolution_Pourcent
+		dataType: string
+		lineageTag: 90195c69-e88c-49ee-a7f3-cf49f43b8330
+		summarizeBy: none
+		sourceColumn: Taux_Evolution_Pourcent
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rang_Croissance
+		dataType: int64
+		formatString: 0
+		lineageTag: bb3e9815-d2d2-4e7c-99aa-e1b1357bdb02
+		summarizeBy: sum
+		sourceColumn: Rang_Croissance
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'reporting vw_EvolutionTypeDepense' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("DESKTOP-IKCAP89\SQLEXPRESS", "FinanceBI"),
+				    reporting_vw_EvolutionTypeDepense = Source{[Schema="reporting",Item="vw_EvolutionTypeDepense"]}[Data]
+				in
+				    reporting_vw_EvolutionTypeDepense
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,33 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: fr-CM
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["reporting vw_BudgetVsDepenses","reporting vw_DepartementFlagDepense","reporting vw_DepensesMensuelles","reporting vw_EvolutionTypeDepense","reporting vw_FullTable","DimTypeDepense","DimRegion","DimDepartement","DimDate","Depenses","Budget","DateMaj"]
+
+annotation __TEdtr = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'reporting vw_BudgetVsDepenses'
+ref table 'reporting vw_DepartementFlagDepense'
+ref table 'reporting vw_DepensesMensuelles'
+ref table 'reporting vw_EvolutionTypeDepense'
+ref table 'reporting vw_FullTable'
+ref table DimTypeDepense
+ref table DimRegion
+ref table DimDepartement
+ref table DimDate
+ref table Depenses
+ref table Budget
+ref table #MEASURES
+ref table DateMaj
+ref table User
+
+ref cultureInfo en-US
+

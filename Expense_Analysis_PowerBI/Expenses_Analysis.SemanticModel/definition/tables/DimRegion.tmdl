@@ -1,0 +1,42 @@
+table DimRegion
+	lineageTag: 90e966e7-5f1f-49b1-aae7-89da99e28457
+
+	column ID_Region
+		dataType: int64
+		formatString: 0
+		lineageTag: 43886692-5305-4aa9-8abe-5d447621ab99
+		summarizeBy: none
+		sourceColumn: ID_Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nom_Region
+		dataType: string
+		lineageTag: 20633c2e-ace0-462c-ba6d-eed74c5121bc
+		summarizeBy: none
+		sourceColumn: Nom_Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pays
+		dataType: string
+		lineageTag: 73f2db84-bcf5-47ab-82f7-38a6dd1fd2dc
+		summarizeBy: none
+		sourceColumn: Pays
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimRegion = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("DESKTOP-IKCAP89\SQLEXPRESS", "FinanceBI"),
+				    dbo_DimRegion = Source{[Schema="dbo",Item="DimRegion"]}[Data],
+				    #"Colonnes supprimées" = Table.RemoveColumns(dbo_DimRegion,{"Budget", "Depenses"})
+				in
+				    #"Colonnes supprimées"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

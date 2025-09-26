@@ -1,0 +1,81 @@
+table Depenses
+	lineageTag: cd34a156-1cae-4e16-a49a-d03d82b2483f
+
+	column DateID
+		dataType: int64
+		formatString: 0
+		lineageTag: a9eb8a87-5f61-4bb2-92ca-dcec9d5c758d
+		summarizeBy: none
+		sourceColumn: DateID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 271353bd-2df4-42c6-b18a-c36da7de59f0
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: c9ce7f3c-1159-453b-8aa9-ce26d9deceb8
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Departement
+		dataType: int64
+		formatString: 0
+		lineageTag: bbc71e36-308f-4727-8a6d-ee7657fa3eb2
+		summarizeBy: none
+		sourceColumn: ID_Departement
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Region
+		dataType: int64
+		formatString: 0
+		lineageTag: efa5055d-9e31-40b1-b00c-6c698acdbf07
+		summarizeBy: none
+		sourceColumn: ID_Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_TypeDepense
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c643ca5-48bd-4543-8a8d-fa915d5e2227
+		summarizeBy: none
+		sourceColumn: ID_TypeDepense
+
+		annotation SummarizationSetBy = Automatic
+
+	column MontantReel
+		dataType: double
+		lineageTag: dbca9829-eca9-46b7-b0f6-b78f7a8bd3c0
+		summarizeBy: sum
+		sourceColumn: MontantReel
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Depenses = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("DESKTOP-IKCAP89\SQLEXPRESS", "FinanceBI"),
+				    dbo_Depenses = Source{[Schema="dbo",Item="Depenses"]}[Data],
+				    #"Colonnes supprimées" = Table.RemoveColumns(dbo_Depenses,{"DimDate", "DimDepartement", "DimRegion", "DimTypeDepense"})
+				in
+				    #"Colonnes supprimées"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

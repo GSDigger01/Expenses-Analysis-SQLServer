@@ -1,0 +1,95 @@
+table 'reporting vw_FullTable'
+	lineageTag: 260e2617-d2de-4530-b4a4-d44b6ba5e48c
+
+	column DateID
+		dataType: int64
+		formatString: 0
+		lineageTag: 56f7f5f4-4893-4809-b453-db7e4c57e699
+		summarizeBy: count
+		sourceColumn: DateID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Annee
+		dataType: int64
+		formatString: 0
+		lineageTag: 644ce2fa-eadc-40cb-9566-3e1fd2ab9e13
+		summarizeBy: sum
+		sourceColumn: Annee
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mois
+		dataType: int64
+		formatString: 0
+		lineageTag: cb489e88-2faa-4daa-99ad-79739c10e523
+		summarizeBy: sum
+		sourceColumn: Mois
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomMois
+		dataType: string
+		lineageTag: 9ade56dd-8b9a-4b16-adda-51ed89a31141
+		summarizeBy: none
+		sourceColumn: NomMois
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nom_Region
+		dataType: string
+		lineageTag: e8bb1858-9d4f-433b-bd2a-0c6ba58a83cf
+		summarizeBy: none
+		sourceColumn: Nom_Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nom_Departement
+		dataType: string
+		lineageTag: aee01530-b356-4f81-8e9f-efb8d2599752
+		summarizeBy: none
+		sourceColumn: Nom_Departement
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nom_TypeDepense
+		dataType: string
+		lineageTag: b8f637f1-dd41-4041-92a7-06440efb7d5e
+		summarizeBy: none
+		sourceColumn: Nom_TypeDepense
+
+		annotation SummarizationSetBy = Automatic
+
+	column depense
+		dataType: double
+		lineageTag: eb9623fd-505c-4f11-a5b7-321efe182ac0
+		summarizeBy: sum
+		sourceColumn: depense
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Budget
+		dataType: double
+		lineageTag: 1c249947-4c5a-4683-b9c5-fcced3b2385c
+		summarizeBy: sum
+		sourceColumn: Budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'reporting vw_FullTable' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("DESKTOP-IKCAP89\SQLEXPRESS", "FinanceBI"),
+				    reporting_vw_FullTable = Source{[Schema="reporting",Item="vw_FullTable"]}[Data]
+				in
+				    reporting_vw_FullTable
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

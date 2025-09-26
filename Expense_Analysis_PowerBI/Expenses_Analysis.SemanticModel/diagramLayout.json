@@ -1,0 +1,202 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 172.27365513624204,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 630.5579638893912,
+            "y": 202.94126474098886
+          },
+          "nodeIndex": "Budget",
+          "nodeLineageTag": "3fb44bd5-dc68-44f9-8185-10c5b7bc0e89",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 279.35498574856445,
+            "y": 201.78197078899825
+          },
+          "nodeIndex": "Depenses",
+          "nodeLineageTag": "cd34a156-1cae-4e16-a49a-d03d82b2483f",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "DimDate",
+          "nodeLineageTag": "44ba4ab0-1011-47d6-9f3d-23be1766930e",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 528.28354358357376,
+            "y": 653.09765691973337
+          },
+          "nodeIndex": "DimDepartement",
+          "nodeLineageTag": "8233194e-db25-4716-a6a8-211d83844e63",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 908.27275692587216,
+            "y": 0
+          },
+          "nodeIndex": "DimRegion",
+          "nodeLineageTag": "90e966e7-5f1f-49b1-aae7-89da99e28457",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 32.184888602842136,
+            "y": 622.53013458837336
+          },
+          "nodeIndex": "DimTypeDepense",
+          "nodeLineageTag": "992866d6-24ff-4934-89ec-ad4228bfaa08",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1088.8274227343986,
+            "y": 231.17493840891291
+          },
+          "nodeIndex": "reporting vw_BudgetVsDepenses",
+          "nodeLineageTag": "be373d62-9741-482b-a30d-b6ba61b1c19f",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1372.8274227343986,
+            "y": 255.17493840891291
+          },
+          "nodeIndex": "reporting vw_DepartementFlagDepense",
+          "nodeLineageTag": "434350e6-12af-4191-8e3e-3f478de0374d",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1656.8274227343986,
+            "y": 243.17493840891291
+          },
+          "nodeIndex": "reporting vw_DepensesMensuelles",
+          "nodeLineageTag": "8ac0f274-2005-458e-91e8-b44c8e46f9d7",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1940.8274227343986,
+            "y": 231.17493840891291
+          },
+          "nodeIndex": "reporting vw_EvolutionTypeDepense",
+          "nodeLineageTag": "c16e6eed-cbb7-4666-a589-d0d0f5c6678a",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 2224.8274227343986,
+            "y": 195.17493840891291
+          },
+          "nodeIndex": "reporting vw_FullTable",
+          "nodeLineageTag": "260e2617-d2de-4530-b4a4-d44b6ba5e48c",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 2508.8274227343986,
+            "y": 290.54882845986668
+          },
+          "nodeIndex": "#MEASURES",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 2792.8274227343986,
+            "y": 326.54882845986668
+          },
+          "nodeIndex": "DateMaj",
+          "nodeLineageTag": "aec72ab4-e7c7-4615-9f3f-d117609fa1d9",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3076.8274227343986,
+            "y": 290.54882845986668
+          },
+          "nodeIndex": "User",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Toutes les tables",
+      "zoomValue": 40.052554724883258,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Toutes les tables",
+  "defaultDiagram": "Toutes les tables"
+}

@@ -1,0 +1,34 @@
+table DimDepartement
+	lineageTag: 8233194e-db25-4716-a6a8-211d83844e63
+
+	column ID_Departement
+		dataType: int64
+		formatString: 0
+		lineageTag: 96671840-95a0-4d0e-848d-bba2d8e7384a
+		summarizeBy: none
+		sourceColumn: ID_Departement
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nom_Departement
+		dataType: string
+		lineageTag: d62e0d04-bb84-4e35-9d1c-654599282322
+		summarizeBy: none
+		sourceColumn: Nom_Departement
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDepartement = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("DESKTOP-IKCAP89\SQLEXPRESS", "FinanceBI"),
+				    dbo_DimDepartement = Source{[Schema="dbo",Item="DimDepartement"]}[Data],
+				    #"Colonnes supprimées" = Table.RemoveColumns(dbo_DimDepartement,{"Budget", "Depenses"})
+				in
+				    #"Colonnes supprimées"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,67 @@
+table 'reporting vw_BudgetVsDepenses'
+	lineageTag: be373d62-9741-482b-a30d-b6ba61b1c19f
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: ff0ede7a-623a-447e-94d1-bbabc23e7917
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nom_Departement
+		dataType: string
+		lineageTag: ee8b7cc3-58ed-404d-9233-aee6b9f3419a
+		summarizeBy: none
+		sourceColumn: Nom_Departement
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalBudget
+		dataType: double
+		lineageTag: 7db918d7-3bd2-4727-926f-f348bd267f3b
+		summarizeBy: sum
+		sourceColumn: TotalBudget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalDepense
+		dataType: double
+		lineageTag: 585f9db2-64bd-44e7-9d85-f5ca39f18ab9
+		summarizeBy: sum
+		sourceColumn: TotalDepense
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PercentDepense
+		dataType: string
+		lineageTag: bf6312c6-7f6e-4324-b160-e734d8fcbe26
+		summarizeBy: none
+		sourceColumn: PercentDepense
+
+		annotation SummarizationSetBy = Automatic
+
+	column flag
+		dataType: string
+		lineageTag: c14233a4-6cbb-464d-9204-d73000b766b0
+		summarizeBy: none
+		sourceColumn: flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'reporting vw_BudgetVsDepenses' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("DESKTOP-IKCAP89\SQLEXPRESS", "FinanceBI"),
+				    reporting_vw_BudgetVsDepenses = Source{[Schema="reporting",Item="vw_BudgetVsDepenses"]}[Data]
+				in
+				    reporting_vw_BudgetVsDepenses
+
+	annotation PBI_ResultType = Table
+
